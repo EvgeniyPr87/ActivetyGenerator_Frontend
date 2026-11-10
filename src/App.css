@@ -1,0 +1,129 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI',sans-serif;
+}
+
+body{
+  background: linear-gradient(135deg,#667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: #333;
+}
+
+.app-container{
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1{
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+.filter-group{
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label{
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+select{
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #e2E8f0;
+  font-size: 16px;
+  outline: none;
+  background-color: #f7fafc;
+  cursor: pointer;
+}
+
+select:focus{
+  border-color: #667eea;
+}
+
+.btn-generate{
+  width: 100%;
+  background: linear-gradient(90deg,#667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.1s;
+}
+
+.btn-generate:active{
+  transform: scale(0.98);
+}
+
+.result-card{
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #f7fafc;
+  border-left: 5px solid #667eea;
+  text-align: left;
+  animation: fadeln 0.4s ease;
+}
+
+.result-title{
+  font-size: 18px;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.result-desc{
+  font-size: 14px;
+  color: #718096;
+  line-height: 1.5;
+}
+
+.badge{
+  display: inline-block;
+  background: #e2E8f0;
+  color: #4a5568;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.error-messae{
+  color: #e53e3e;
+  background: #fed7d7;
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: left;
+}
+
+@keyframes fadeIn{
+  from{opacity: 0;
+    transform: translateY(10px);
+  } to{opacity: 1;
+  transform: translateY(0);}
+}
