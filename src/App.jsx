@@ -10,6 +10,8 @@ function App() {
   const [viewedIds, setViewedIds] = useState([]);
   const [currentMood, setCurrentMood] = useState("");
 
+  const [loading, setLoading]=useState(false);
+
   const [theme, setTheme]=useState(()=>
   {
     return localStorage.getItem("app-theme") || "light";
@@ -49,6 +51,7 @@ const toggleTheme=()=>{
 
     try {
       setError('');
+      
       const response = await axios.get(BACKEND_URL, {params});
 
       setActivity(response.data);
@@ -75,29 +78,41 @@ const toggleTheme=()=>{
 
       <button className="theme-toggle" onClick={toggleTheme}>{theme==="light"? "🌙":"☀️"}</button>
 
-      <h1>Чем заняться?</h1>
+      <h1>What to do?</h1>
 
       <div className="filter-group">
-        <label>Какое настроение?</label>
+        <label>What is your mood?</label>
         <select value={mood} onChange={(e)=>setMood(e.target.value)}>
-          <option value="lazy">Расслабленное(Lazy)</option>
-          <option value="active">Энергичное(Active)</option>
-          <option value="social">Хочу общения(Social)</option>
-          <option value="creative">Творческое(Creative)</option>
+          <option value="lazy">Lazy state</option>
+          <option value="active">Active state</option>
+          <option value="social">Social state</option>
+          <option value="creative">Creative state</option>
+          <option value="angry">Angry state</option>
+          <option value="tired">Tired state</option>
+          <option value="sick">Sick state</option>
+           <option value="broken">Broken state</option>
+
         </select>
       </div>
       <div className="filter-group">
-        <label>Какой сегодня день?</label>
+        <label>What day is it today?</label>
         <select value={dayType} onChange={(e)=>setDayType(e.target.value)}>
-          <option value="any">Любой день</option>
-          <option value="weekend">Выходной день</option>
-          <option value="workday">Будний день</option>
+          <option value="any">An ordinary day</option>
+          <option value="weekend">Weekend</option>
+          <option value="workday">Weekday</option>
         </select>
       </div>
 
-      <button className="btn-generate" onClick={fetchActivity}>Удиви меня!</button>
+      <button className="btn-generate" onClick={fetchActivity}>Surprise me!</button>
 
-      {activity && (
+      {loading && (
+        <div className="spinner-contayner">
+          <div className="spinner"></div>
+        </div>
+      )}
+
+
+      {activity &&  (
         <div className="result-card" key={activity.id}>
           <div className="result-title">{activity.title}</div>
           <div className="result-desc">{activity.description}</div>
@@ -105,7 +120,7 @@ const toggleTheme=()=>{
         </div>
       )}
 
-      {error && <div className="error-message">{error}</div>}
+      {error &&  <div className="error-message">{error}</div>}
     </div>
   );
 }
