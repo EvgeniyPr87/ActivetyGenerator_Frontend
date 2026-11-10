@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -9,6 +9,26 @@ function App() {
   const [error, setError] = useState("");
   const [viewedIds, setViewedIds] = useState([]);
   const [currentMood, setCurrentMood] = useState("");
+
+  const [theme, setTheme]=useState(()=>
+  {
+    return localStorage.getItem("app-theme") || "light";
+  });
+
+  useEffect(()=>{
+    if(theme=="dark"){
+      document.body.classList.add("dark-theme");
+    }else{
+      document.body.classList.remove("dark-theme");
+    }
+    localStorage.setItem("app-theme", theme);
+  },[theme]
+);
+
+const toggleTheme=()=>{
+  setTheme((prevTheme)=>(prevTheme=="light"? "dark":"light"));
+};
+
 
   const BACKEND_URL='http://localhost:8080/api/activities/random';
 
@@ -52,6 +72,9 @@ function App() {
 
   return (
     <div className="app-container">
+
+      <button className="theme-toggle" onClick={toggleTheme}>{theme==="light"? "🌙":"☀️"}</button>
+
       <h1>Чем заняться?</h1>
 
       <div className="filter-group">
@@ -75,10 +98,10 @@ function App() {
       <button className="btn-generate" onClick={fetchActivity}>Удиви меня!</button>
 
       {activity && (
-        <div className="result-card">
+        <div className="result-card" key={activity.id}>
           <div className="result-title">{activity.title}</div>
           <div className="result-desc">{activity.description}</div>
-          <div className="badge">{activity.free ? "Бесплатно":"Платное"}</div>
+          <div className="badge">{activity.free ? "Free":"Paid"}</div>
         </div>
       )}
 
